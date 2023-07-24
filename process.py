@@ -1,7 +1,6 @@
 import os
 import sys
 import shutil
-import argparse
 from colorama import init
 
 from pidng.core import RPICAM2DNG
@@ -10,51 +9,54 @@ from pidng.core import RPICAM2DNG
 init(convert=True)
 
 input_folder = 'input'
-output_folder = 'output'
 
 image_extensions = ['.raw', '.jpg', '.jpeg']
 
-parser = argparse.ArgumentParser(description='Script to extract the raw information of RaspiStill JPEG images and convert them to DNG files.')
-parser.add_argument('--input', type=str, metavar='Input folder', default=input_folder, help='Folder with the image files (default: %(default)s)')
-parser.add_argument('--output', type=str, metavar='Output folder', default=output_folder, help='Folder to export the DNG files (default: %(default)s)')
-
-args = parser.parse_args()
+raw_files = []
 
 def get_file_extension(filename):
     return os.path.splitext(filename)[1].lower()
 
-def convert_image(path, output_folder):    
-
+def convert_image(path):    
     # pass camera reference into the converter.
     file = RPICAM2DNG().convert(path)
-    final_file = file.replace(input_folder, output_folder)
-
-    # move file to final destination
-    shutil.move(file, final_file)
-    return final_file
+    return file
     
 def init():
+    global raw_files
+    try:
+        print('''
+Raspi RAW to DNG files
 
-    if not os.path.exists(output_folder):
-        # If it doesn't exist, create it
-        os.makedirs(output_folder)
+''')
+        
+        for arg in sys.argv[1:]:
+            isDir = os.path.isdir(arg)
+            if (isDir):
+                for f in os.listdir(arg):
+                    file_path = os.path.join(arg, f)
+                    if os.path.isfile(file_path) and (get_file_extension(f) in image_extensions):                    
+                        raw_files.append(file_path)
+                
+            elif (not isDir) and (get_file_extension(arg) in image_extensions):
+                raw_files.append(arg)            
+             
+        if len(raw_files):
+            for raw_file in raw_files:
+                # If the file is an MP4, convert it to SRT format
+                filepath = raw_file
+                print(f'-> CONVERTING FILE {raw_file}')
+                final_file = convert_image(filepath)
+                print(f'--> CREATED FILE {final_file}')
 
-    # Find files in the input folder
-    for subdir, dirs, files in os.walk(args.input):
-        for file in files:
-            filepath = subdir + os.sep + file
+        else:
+            print('No valid files')
 
-            if (get_file_extension(file) in image_extensions): 
-
-                try:
-                    print(f'-> CONVERTING FILE {file}')
-                    final_file = convert_image(filepath, output_folder)
-                    print(f'--> CREATED FILE {final_file}')
-
-                except RuntimeError as e:
-                    print(f'ERROR: Unable to convert {filepath}')
-                    print(e)
-                    sys.exit(1)
-
+    except Exception as e:
+        print("An error has ocurred:")
+        print(e)
+    
+    input("Press Enter to Exit...")
+        
 if __name__ == '__main__':
     init()
