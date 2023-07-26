@@ -9,10 +9,6 @@ Tested with Python 3.7.7
 - Load the environment using `.venv\Scripts\activate`
 - After the environment is loaded run `pip install -r requirements.txt` to install the dependencies
 
-## Configuration
-- Run `python process.py --help` to display the available options
-
 ## Usage
-- Add the raw images in the `input` folder
-- Run `python process.py` to convert all the images in that folder
-- Check the DNG files in `output` folder
+- Run `python process.py path_to_folder` to convert all the images in that folder
+- Check the DNG files in the same input folder
