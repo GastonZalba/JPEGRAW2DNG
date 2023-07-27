@@ -1,12 +1,7 @@
 import os
 import sys
-import shutil
-from colorama import init
 
 from pidng.core import RPICAM2DNG
-
-# fix colorama colors in windows console
-init(convert=True)
 
 input_folder = 'input'
 
@@ -26,9 +21,11 @@ def init():
     global raw_files
     try:
         print('''
-Raspi RAW to DNG files
-
-''')
+ _____________________________________________
+|                                             |
+| RaspiStill JPEG+RAW to DNG files converter  |
+|_____________________________________________|
+              ''')
         
         for arg in sys.argv[1:]:
             isDir = os.path.isdir(arg)
@@ -50,13 +47,20 @@ Raspi RAW to DNG files
                 print(f'--> CREATED FILE {final_file}')
 
         else:
-            print('No valid files')
+            print('''
+Extract the raw information from RaspiStill JPEG+RAW images and convert it to DNG files.
+
+How to use:
+- Drag and drop image files or the folders containing them to the .exe
+- Valid extensions are JPEG, JPG and RAW
+- The new DNG files will be created next to the original ones using the same filename
+            ''')
 
     except Exception as e:
         print("An error has ocurred:")
         print(e)
     
-    input("Press Enter to Exit...")
+    input("Press any key to exit...")
         
 if __name__ == '__main__':
     init()

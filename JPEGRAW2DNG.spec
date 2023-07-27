@@ -6,7 +6,7 @@ block_cipher = None
 
 a = Analysis(
     ['process.py'],
-    pathex=['Z:\\DESARROLLO\\_RASPBERRY\\PiDNG-script\\.venv\\Lib\\site-packages'],
+    pathex=['.venv\\Lib\\site-packages'],
     binaries=[],
     datas=[],
     hiddenimports=[],
@@ -28,7 +28,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='PiDNGConverter',
+    name='JPEG+RAW2DNG Converter',
     icon='icon.png',
     debug=False,
     bootloader_ignore_signals=False,
