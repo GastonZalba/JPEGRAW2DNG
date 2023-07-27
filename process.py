@@ -48,10 +48,10 @@ def init():
 
         else:
             print('''
-Extract the raw information from RaspiStill JPEG+RAW images and convert it to DNG files.
+Extract the raw information from RaspiStill JPEG+RAW images and convert it to DNGs files.
 
 How to use:
-- Drag and drop image files or the folders containing them to the .exe
+- Drag and drop image files or the folders that contain them into the .exe
 - Valid extensions are JPEG, JPG and RAW
 - The new DNG files will be created next to the original ones using the same filename
             ''')
@@ -60,7 +60,7 @@ How to use:
         print("An error has ocurred:")
         print(e)
     
-    input("Press any key to exit...")
+    input("Press Enter to exit...")
         
 if __name__ == '__main__':
     init()

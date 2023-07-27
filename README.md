@@ -6,7 +6,7 @@ Script to extract and convert the raw information from RaspiStill JPEG+RAW image
 - The new DNG files will be created next to the original ones using the same filename
 ### Release version
 - Download the Executable version from the `Releases` section (only Windows)
-- Drag and drop image files or the folders containing them to the .exe
+- Drag and drop image files or the folders that contain them into the .exe file
 ### Manual installation using a virtual environment and Python (tested with 3.7.7)
 - Install virtualenv running `pip install virtualenv`
 - On the project folder, create a virtual environment using virtualenv: `python -m venv .venv`
